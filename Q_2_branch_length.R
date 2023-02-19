@@ -55,16 +55,18 @@ K80_matrix_and_P_and_Q <- function(seq1, seq2, seq3) {
   
   print(paste("P for S1_2 then S1_3 then then S2_3 is:", transition/nchar(seq1)))
   print(paste("Q for S1_2 then S1_3 then S2_3 is:", transversion/nchar(seq1)))
-  tree <-upgma(lord)
-  plot(tree)
+  tree <-upgma(k80_matrix)
+  plot(tree, "unrooted")
+  
+  print(paste("Here is the pairwise distance matrix. Becareful of row and column"))
   return(k80_matrix)
 }
 
 #### Test function 
 
-seq1 <- "TATATGGCGTTAAAGGGATAGAGGTTGTTT"
-seq2 <- "TATGCCGGGGTAGCTCGTTGCTCATTTTGT"
-seq3 <- "TATGTAGAGATAATAGGGTCTAGTTTCTTT"
+seq1 <- "TTAAGTCTCGAAAGATCTACGTCGTGGATG"
+seq2 <- "TTGCATCTCCAGCAAACTGCATAGTGGTCG"
+seq3 <- "TTTTATCGCTAATAACCTCTATGGTGGTGT"
 
 
 K80_matrix_and_P_and_Q(seq1, seq2, seq3)
@@ -74,4 +76,24 @@ K80_matrix_and_P_and_Q(seq1, seq2, seq3)
 
 
 
+########## Caculation of branch length 
 
+dist_matrix <- data.frame( as.matrix(K80_matrix_and_P_and_Q(seq1, seq2, seq3)))
+
+
+ b1 <- (sum(dist_matrix$X1) - dist_matrix$X2[3]) /2
+ 
+ b2 <- (sum(dist_matrix$X2) - dist_matrix$X3[1])/2
+ 
+ b3 <-  (sum(dist_matrix$X3) - dist_matrix$X1[2]) /2
+ 
+
+print(paste(" Branch legnth of b1 is: ", b1))
+
+print(paste(" Branch legnth of b2 is: ", b2))
+
+print(paste(" Branch legnth of b3 is: ", b3))
+
+
+ 
+ 
